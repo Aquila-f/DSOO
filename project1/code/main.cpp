@@ -17,9 +17,10 @@ main(){
     
     int limit_t = 5;
 
-    for(;timestamp<limit_t;timestamp++){
+    for(;gobal_timestamp<limit_t;gobal_timestamp++){
         rrr.one_time_iter();
         cout << rrr;
+        rrr.vector_clear();
         // aaa.step1_create_and_push();
         // bbb.step2_create_and_push();
         

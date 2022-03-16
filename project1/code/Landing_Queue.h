@@ -1,15 +1,21 @@
 #include <vector>
 #include <queue>
 #include <iostream>
+#define FuelRange 10
+#define LandQRange 4
+#define TakeoffQRange 3
+
 using namespace std;
 
 
-static int timestamp = 0;
+static int gobal_timestamp = 0;
 
 struct Airplane{
     int id;
     int fuel;
     int timestamp;
+    Airplane() : id(-1){};
+    Airplane(int id_, int fuel_, int timestamp_) : id(id_), fuel(fuel_), timestamp(timestamp_){}
 };
 
 // struct LandQplane{
@@ -25,7 +31,7 @@ public:
     LandQ();
     void create_airplane();
     void push_airplane_into_landQ();
-    void step1_create_and_push();
+    void step1_LandQ_create_and_push();
 
     friend ostream& operator<<(ostream& os, const LandQ& data){
         os << "-----Landing Queue info-----\n";
@@ -41,7 +47,7 @@ public:
     };
 
 
-//private:
+protected:
     vector<vector<Airplane>> LandQ_vector;
     vector<Airplane> create_plane_vector;
     int LandQ_index;
@@ -55,9 +61,9 @@ inline LandQ::LandQ():LandQ_index(0){
 }
 
 inline void LandQ::create_airplane(){
-    int create_limit = rand() % 4;
+    int create_limit = rand() % LandQRange;
     for(int i=0;i<create_limit;i++){
-        create_plane_vector.push_back({LandQ_index * 2 + 1, rand() % 10 + 1, timestamp});
+        create_plane_vector.push_back({LandQ_index * 2 + 1, rand() % FuelRange + 1, gobal_timestamp});
         LandQ_index++;
     }
 }
@@ -76,7 +82,7 @@ inline void LandQ::push_airplane_into_landQ(){
     }
 }
 
-inline void LandQ::step1_create_and_push(){
+inline void LandQ::step1_LandQ_create_and_push(){
     create_airplane();
     push_airplane_into_landQ();
     create_plane_vector.clear();

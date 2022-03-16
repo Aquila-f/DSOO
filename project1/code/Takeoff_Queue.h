@@ -16,7 +16,7 @@ public:
     TakeoffQ();
     void create_airplane();
     void push_airplane_into_landQ();
-    void step2_create_and_push();
+    void step2_TakeoffQ_create_and_push();
 
     friend ostream& operator<<(ostream& os, const TakeoffQ& data){
         os << "-----Takeoff Queue info-----\n";
@@ -32,7 +32,7 @@ public:
     };
 
 
-//private:
+protected:
     vector<vector<Airplane>> TakeoffQ_vector;
     vector<Airplane> create_plane_vector;
     int TakeoffQ_index;
@@ -46,9 +46,9 @@ TakeoffQ::TakeoffQ():TakeoffQ_index(0){
 }
 
 void TakeoffQ::create_airplane(){
-    int create_limit = rand() % 3;
+    int create_limit = rand() % TakeoffQRange;
     for(int i=0;i<create_limit;i++){
-        create_plane_vector.push_back({TakeoffQ_index * 2, INT16_MAX, timestamp});
+        create_plane_vector.push_back({TakeoffQ_index * 2, INT16_MAX, gobal_timestamp});
         TakeoffQ_index++;
     }
 }
@@ -67,7 +67,7 @@ void TakeoffQ::push_airplane_into_landQ(){
     }
 }
 
-void TakeoffQ::step2_create_and_push(){
+void TakeoffQ::step2_TakeoffQ_create_and_push(){
     create_airplane();
     push_airplane_into_landQ();
     create_plane_vector.clear();
